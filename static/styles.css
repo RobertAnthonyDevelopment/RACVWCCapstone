@@ -16,6 +16,10 @@ h1 {
   height: 10vh;
 }
 
+.heading {
+  align-items: center;
+}
+
 p {
   color: #3b3c36;
   font-size: 20px;
