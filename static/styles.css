@@ -12,13 +12,18 @@ h1 {
   font-family: Roboto, sans-serif;
 }
 
+.heading {
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   height: 10vh;
 }
 
-.heading {
-  align-items: center;
-}
 
 p {
   color: #3b3c36;
