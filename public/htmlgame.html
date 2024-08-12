@@ -1,1 +1,219 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: #61dafb;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 180px; /* Added padding at the top */
+        }
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #20232a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        #gameBoard {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #61dafb;
+            border: 2px solid #20232a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #20232a;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cell:hover {
+            background-color: #21a1f1;
+        }
+        #status {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #resetButton, #toggleMusicButton, #modeButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #20232a;
+            background-color: #61dafb;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+        #resetButton:hover, #toggleMusicButton:hover, #modeButton:hover {
+            background-color: #21a1f1;
+        }
+        #instructions {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #ffffff;
+        }
+        #videoLink {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #61dafb;
+            text-decoration: none;
+            border-bottom: 1px solid #61dafb;
+        }
+        #videoLink:hover {
+            color: #21a1f1;
+            border-bottom: 1px solid #21a1f1;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="gameBoard">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div id="status">Player X's turn</div>
+        <button id="resetButton">Reset Game</button>
+        <button id="modeButton">Play Against Computer</button>
+        <button id="toggleMusicButton">Play Music</button>
+        <audio id="backgroundMusic" loop>
+            <source src="https://www.bensound.com/bensound-music/bensound-summer.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div id="instructions">
+            <p>Instructions:</p>
+            <p>1. Click on the cells to place your move.</p>
+            <p>2. The game alternates between Player X and Player O.</p>
+            <p>3. The status displays the current player's turn.</p>
+            <p>4. If a player wins or the game is a draw, the status will update.</p>
+            <p>5. Use the "Reset Game" button to start a new game.</p>
+            <p>6. Use the "Play Music" button to toggle background music.</p>
+            <p>7. Use the "Play Against Computer" button to switch between playing against another player or the computer.</p>
+        </div>
+        <a id="videoLink" href="https://www.youtube.com/watch?v=sVHhQoRl5sE&t=6s" target="_blank">Listen To "Summer" by Bensound Here</a>
+    </div>
+    <script>
+        const cells = document.querySelectorAll('.cell');
+        const status = document.getElementById('status');
+        const resetButton = document.getElementById('resetButton');
+        const modeButton = document.getElementById('modeButton');
+        const toggleMusicButton = document.getElementById('toggleMusicButton');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let board = Array(9).fill(null);
+        let playAgainstComputer = false;
+
+        function handleCellClick(e) {
+            const index = e.target.dataset.index;
+            if (board[index] || !gameActive) return;
+            board[index] = currentPlayer;
+            e.target.textContent = currentPlayer;
+            if (checkWin()) {
+                status.textContent = `Player ${currentPlayer} wins!`;
+                gameActive = false;
+            } else if (board.every(cell => cell)) {
+                status.textContent = 'It\'s a draw!';
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                status.textContent = `Player ${currentPlayer}'s turn`;
+                if (playAgainstComputer && currentPlayer === 'O') {
+                    computerMove();
+                }
+            }
+        }
+
+        function computerMove() {
+            let emptyCells = [];
+            board.forEach((cell, index) => {
+                if (!cell) emptyCells.push(index);
+            });
+            if (emptyCells.length > 0) {
+                const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                board[randomIndex] = 'O';
+                document.querySelector(`.cell[data-index='${randomIndex}']`).textContent = 'O';
+                if (checkWin()) {
+                    status.textContent = `Player O wins!`;
+                    gameActive = false;
+                } else if (board.every(cell => cell)) {
+                    status.textContent = 'It\'s a draw!';
+                    gameActive = false;
+                } else {
+                    currentPlayer = 'X';
+                    status.textContent = `Player ${currentPlayer}'s turn`;
+                }
+            }
+        }
+
+        function checkWin() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            return winPatterns.some(pattern => {
+                const [a, b, c] = pattern;
+                return board[a] && board[a] === board[b] && board[a] === board[c];
+            });
+        }
+
+        function resetGame() {
+            board.fill(null);
+            cells.forEach(cell => cell.textContent = '');
+            currentPlayer = 'X';
+            status.textContent = `Player ${currentPlayer}'s turn`;
+            gameActive = true;
+        }
+
+        function toggleMode() {
+            playAgainstComputer = !playAgainstComputer;
+            modeButton.textContent = playAgainstComputer ? 'Play Against Player' : 'Play Against Computer';
+            resetGame();
+        }
+
+        function toggleMusic() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                toggleMusicButton.textContent = 'Pause Music';
+            } else {
+                backgroundMusic.pause();
+                toggleMusicButton.textContent = 'Play Music';
+            }
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        resetButton.addEventListener('click', resetGame);
+        modeButton.addEventListener('click', toggleMode);
+        toggleMusicButton.addEventListener('click', toggleMusic);
+    </script>
+</body>
+</html>
+
