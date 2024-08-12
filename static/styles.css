@@ -5,25 +5,14 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  color: #3b3c36;
-  font-size: 40px;
-  font-family: Roboto, sans-serif;
-}
-
 .heading {
   height: 10vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Roboto, sans-serif;
 }
-
-.container {
-  height: 10vh;
-}
-
 
 p {
   color: #3b3c36;
