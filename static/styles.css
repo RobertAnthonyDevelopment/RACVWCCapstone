@@ -20,6 +20,10 @@ body {
     align-items: center;
 }
 
+div {
+  align-items: center;
+}
+
 p {
   color: #3b3c36;
   font-size: 20px;
