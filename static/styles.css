@@ -2,32 +2,30 @@ body {
   font-family: Roboto, sans-serif;
   background-color: #f0f0f0;
   font-size: 20px;
-  font-family: Roboto, sans-serif;
 }
 
- h1 {
+h1 {
   height: 10vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Roboto, sans-serif;
 }
 
 .container {
-    height: 10vh;
-    display: flex;
-    align-items: center;
+  height: 10vh;
+  display: flex;
+  align-items: center;
 }
 
 div {
+  display: flex;
   align-items: center;
 }
 
 p {
   color: #3b3c36;
   font-size: 20px;
-  font-family: Roboto, sans-serif;
 }
 
 ul {
@@ -38,3 +36,4 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
