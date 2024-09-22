@@ -3,96 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Robert's Website</title>
+  <title>Tic Tac Toe Game</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" type="text/css" href="./static/styles.css">
-</head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe Game</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #282c34;
-            color: #61dafb;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-top: 180px; /* Added padding at the top */
-        }
-        #gameContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #20232a;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        #gameBoard {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-gap: 5px;
-            margin-bottom: 20px;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            background-color: #61dafb;
-            border: 2px solid #20232a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            color: #20232a;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .cell:hover {
-            background-color: #21a1f1;
-        }
-        #status {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-        #resetButton, #toggleMusicButton, #modeButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #20232a;
-            background-color: #61dafb;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 10px;
-        }
-        #resetButton:hover, #toggleMusicButton:hover, #modeButton:hover {
-            background-color: #21a1f1;
-        }
-        #instructions {
-            margin-top: 20px;
-            font-size: 18px;
-            text-align: center;
-            color: #ffffff;
-        }
-        #videoLink {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #61dafb;
-            text-decoration: none;
-            border-bottom: 1px solid #61dafb;
-        }
-        #videoLink:hover {
-            color: #21a1f1;
-            border-bottom: 1px solid #21a1f1;
-        }
-    </style>
+  <style>
+      body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          min-height: 100vh;
+          background-color: #282c34;
+          color: #61dafb;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding-top: 20px;
+      }
+      #gameContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: #20232a;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      #gameBoard {
+          display: grid;
+          grid-template-columns: repeat(3, 100px);
+          grid-gap: 5px;
+          margin-bottom: 20px;
+      }
+      .cell {
+          width: 100px;
+          height: 100px;
+          background-color: #61dafb;
+          border: 2px solid #20232a;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 2em;
+          color: #20232a;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+      .cell:hover {
+          background-color: #21a1f1;
+      }
+      #status {
+          font-size: 20px;
+          margin-bottom: 20px;
+      }
+      #resetButton, #toggleMusicButton, #modeButton {
+          padding: 10px 20px;
+          font-size: 16px;
+          color: #20232a;
+          background-color: #61dafb;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          margin-bottom: 10px;
+      }
+      #resetButton:hover, #toggleMusicButton:hover, #modeButton:hover {
+          background-color: #21a1f1;
+      }
+      #instructions {
+          margin-top: 20px;
+          font-size: 18px;
+          text-align: center;
+          color: #ffffff;
+      }
+      #videoLink {
+          margin-top: 20px;
+          font-size: 16px;
+          color: #61dafb;
+          text-decoration: none;
+          border-bottom: 1px solid #61dafb;
+      }
+      #videoLink:hover {
+          color: #21a1f1;
+          border-bottom: 1px solid #21a1f1;
+      }
+  </style>
 </head>
 <body>
+    <hr>
+    <div class="container text-center w-100">
+        <a href="../index.html" class="btn btn-primary mx-2">HOME</a>
+        <a href="./music.html" class="btn btn-primary mx-2">MUSIC</a>
+        <a href="./resume.html" class="btn btn-secondary mx-2">RESUME</a>
+        <a href="./htmlgame.html" class="btn btn-success mx-2">Tic-Tac-Toe</a>
+    </div>
+    <hr>
+
     <div id="gameContainer">
         <div id="gameBoard">
             <div class="cell" data-index="0"></div>
@@ -125,6 +129,8 @@
         </div>
         <a id="videoLink" href="https://www.youtube.com/watch?v=sVHhQoRl5sE&t=6s" target="_blank">Listen To "Summer" by Bensound Here</a>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const cells = document.querySelectorAll('.cell');
         const status = document.getElementById('status');
@@ -152,7 +158,7 @@
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
                 status.textContent = `Player ${currentPlayer}'s turn`;
                 if (playAgainstComputer && currentPlayer === 'O') {
-                    computerMove();
+                    setTimeout(computerMove, 500);
                 }
             }
         }
@@ -222,4 +228,3 @@
     </script>
 </body>
 </html>
-
